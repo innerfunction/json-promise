@@ -193,12 +193,6 @@ function makeStringify( asPromise, resolveAll ) {
     return stringify;
 }
 
-exports.q = function( q ) {
-    return makeStringify( q, q.all );
-}
-
-exports.init = init;
-
 // Make a stringify function which works with the provided promises module.
 // @module:     A promises module; or an object with isPromise and resolveAll functions.
 // @hint:       An optional hint identifying the promise module.
