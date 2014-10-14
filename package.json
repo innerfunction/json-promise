@@ -1,5 +1,9 @@
 {
     "name":"json-promise",
+    "description":"JSON stringify function supporting asynchronous property values via deferred promises.",
+    "keywords":"json stringify asnychronous deferred promises",
     "private":false,
-    "version":"0.0.1"
+    "version":"0.0.1",
+    "license":"Apache-2.0",
+    "author":"Julian Goacher"
 }
