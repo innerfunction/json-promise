@@ -193,11 +193,10 @@ function makeStringify( asPromise, resolveAll ) {
     return stringify;
 }
 
-// Make a replacement JSON object with a stringify function that works with the provided
-// promises module.
-// @module:     A promises module; or an object with isPromise and resolveAll functions.
-// @hint:       An optional hint identifying the promise module.
-exports.makeWith = function( module, hint ) {
+// Make a replacement JSON object with a stringify function that uses the provided promises module.
+// @module:     A promises module; or an object with asPromise() and resolveAll() functions.
+// @hint:       An optional hint identifying the promise module, e.g. 'q', 'when', 'Promise'.
+exports.use = function( module, hint ) {
     var stringify;
     // If no hint is provided then attempt to identify the promises module from its members.
     if( !hint ) {
