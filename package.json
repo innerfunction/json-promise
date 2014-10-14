@@ -3,7 +3,7 @@
     "description":"JSON stringify function supporting asynchronous property values via deferred promises.",
     "keywords":"json stringify asnychronous deferred promises",
     "private":false,
-    "version":"0.0.2",
+    "version":"0.0.3",
     "license":"Apache-2.0",
     "author":"Julian Goacher"
 }

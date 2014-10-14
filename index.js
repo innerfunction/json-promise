@@ -193,7 +193,8 @@ function makeStringify( asPromise, resolveAll ) {
     return stringify;
 }
 
-// Make a stringify function which works with the provided promises module.
+// Make a replacement JSON object with a stringify function that works with the provided
+// promises module.
 // @module:     A promises module; or an object with isPromise and resolveAll functions.
 // @hint:       An optional hint identifying the promise module.
 exports.makeWith = function( module, hint ) {
@@ -237,8 +238,9 @@ exports.makeWith = function( module, hint ) {
     if( !stringify ) {
         throw new Error('Unrecognized promises module');
     }
-    return {
-        stringify: stringify
-    }
+    // Return a replacement JSON object with the new stringify() method.
+    var result = Object.create( JSON );
+    result.stringify = stringify;
+    return result;
 }
 
