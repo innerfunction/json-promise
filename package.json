@@ -5,5 +5,14 @@
     "private":false,
     "version":"0.0.4",
     "license":"Apache-2.0",
-    "author":"Julian Goacher"
+    "author":"Julian Goacher",
+    "contributors": [
+        "Maria Talayero"
+    ],
+    "devDependencies": {
+        "promise": ">=6.0.1",
+        "q": ">=1.0.1",
+        "vows": ">=0.7.0",
+        "when": ">=3.5.1"
+    }
 }

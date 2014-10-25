@@ -148,6 +148,7 @@ function makeStringify( asPromise, resolveAll ) {
                                 ? '{\n' + gap + partial.join(',\n' + gap) + '\n' + gap + '}'
                                 : '{' + partial.join(',') + '}';
                     return v;
+                    //return asPromise( v );
                 });
             }
         });
@@ -221,14 +222,11 @@ exports.use = function( module, hint ) {
             break;
         case 'when':
             // See https://github.com/cujojs/when
-            // TODO: Untested
-            stringify = makeStringify( module, module.join );
+            stringify = makeStringify( module, module.all );
             break;
         case 'promise':
-            // See See https://github.com/then/promise
-            // TODO: Untested
-            var Promise = module.Promise;
-            stringify = makeStringify( Promise.resolve, Promise.all );
+            // See https://github.com/then/promise
+            stringify = makeStringify( module.resolve, module.all );
             break;
         case '<anonymous>':
             stringify = makeStringify( module.asPromise, module.resolveAll );

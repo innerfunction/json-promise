@@ -2,12 +2,14 @@ var vows = require('vows'),
     assert = require('assert'),
     q = require('q'),
     when = require('when'),
-    promise = require('promise'),
+    Promise = require('promise'),
     jsonPromise = require('json-promise');
 
 var test = vows.describe('stringify function');
 var batch = {}
 
+// Default test topic. Stringify a data structure using the provided JSON object,
+// then parse the string result back to a data structure.
 function topic( data, JSON ) {
     return function() {
         var cb = this.callback;
@@ -17,6 +19,8 @@ function topic( data, JSON ) {
         });
     }
 }
+
+// Resolve a dotted JS value reference against a base object.
 function getValue( obj, ref ) {
     ref = ref.split('.');
     return ref.reduce(function( result, name ) {
@@ -24,37 +28,40 @@ function getValue( obj, ref ) {
     }, obj );
 }
 
+// Add a new value test to the test context.
 function addValueTest( context, ref, value ) {
     context[ref] = function( err, result ) {
         assert.equal( getValue( result, ref ), value );
     }
 }
-doTest('q', q, jsonPromise.use( q ) );
-doTest('when', when, jsonPromise.use( when ) );
-//doTest('Promise', promise.Promise, jsonPromise.use( promise ) );
 
-function doTest( moduleName, promise, JSON ) {
+// Construct tests for each of the supported promises libraries.
+makeTest('q', q, jsonPromise.use( q ) );
+makeTest('when', when, jsonPromise.use( when ) );
+makeTest('Promise', Promise.resolve, jsonPromise.use( Promise ) );
+
+// Make a JSON serialize test for a specific promises modules.
+function makeTest( moduleName, promise, JSON ) {
 
     var person = {
         firstName: promise("John"),
         lastName: "Doe",
         age: promise(32),
         eyeColor: "blue",
-        family: 
-            {
-                mother: promise({
-                    name: "Claire",
-                    age: 57,
-                    working: promise(true),
-                    eyeColor: "blue"
-                }),
-                father: {
-                   name: "Steven",
-                   age: 60,
-                   working: false,
-                   eyeColor: promise("brown")
-                }
+        family:  {
+            mother: promise({
+                name: "Claire",
+                age: 57,
+                working: promise(true),
+                eyeColor: "blue"
+            }),
+            father: {
+               name: "Steven",
+               age: 60,
+               working: false,
+               eyeColor: promise("brown")
             }
+        }
     };
 
     var context = { topic: topic( person, JSON ) };
